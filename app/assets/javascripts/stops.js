@@ -1,6 +1,17 @@
 $(document).ready(function () {
 
-  var btn_locate = $(".btn-locate")
+  var btn_locate      = $(".btn-locate")
+  var alert_container = $(".alert-container")
+  var update_string   = "Update"
+  var updating_string = "Updating..."
+
+  function showAlert(text) {
+    var html = '<div class="alert alert-danger alert-dismissable">'
+    html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
+    html += text + '</div>'
+
+    alert_container.html(html)
+  }
 
   function refreshTimes() {
     $(".dept-time").each(function (i, span) {
@@ -26,7 +37,7 @@ $(document).ready(function () {
   }
 
   function refreshStops() {
-    btn_locate.text("Locating...").addClass("disabled")
+    btn_locate.text(updating_string).addClass("disabled")
 
     if (navigator.geolocation) {
 
@@ -61,19 +72,19 @@ $(document).ready(function () {
           refreshTimes();
         })
         .fail(function () {
-          alert("Unable to connect to server.")
+          showAlert("Unable to connect to server.")
         })
         .always(function () {
-          btn_locate.text("Locate").removeClass("disabled");
+          btn_locate.text(update_string).removeClass("disabled");
         })
       }, function () {
-        btn_locate.text("Locate").removeClass("disabled");
-        alert("Unable to retrieve location.");
+        btn_locate.text(update_string).removeClass("disabled");
+        showAlert("Unable to retrieve location.");
       });
     }
     else {
-      btn_locate.text("Locate").removeClass("disabled");
-      alert("Geolocation is not supported by this browser.");
+      btn_locate.text(update_string).removeClass("disabled");
+      showAlert("Geolocation is not supported by this browser.");
     }
   }
 
