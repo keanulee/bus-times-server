@@ -1,3 +1,4 @@
+# Example: rake csv_model_import["/app/lib/tasks/GRT_GTFS/stops.txt",Stop]
 desc "Imports a CSV file into an ActiveRecord table"
 task :csv_model_import, [:filename, :model] => :environment do |task,args|
   lines = File.new(args[:filename]).readlines
