@@ -1,12 +1,28 @@
-# Example: rake csv_model_import["/app/lib/tasks/GRT_GTFS/stops.txt",Stop]
+require 'csv'
+
+# Example: rake gtfs_import["/Users/Keanu/Downloads/GRT_GTFS"]
 desc "Imports a CSV file into an ActiveRecord table"
-task :csv_model_import, [:filename, :model] => :environment do |task,args|
-  lines = File.new(args[:filename]).readlines
-  header = lines.shift.strip
-  keys = header.split(',')
-  lines.each do |line|
-    values = line.strip.split(',')
-    attributes = Hash[keys.zip values]
-    Module.const_get(args[:model]).create(attributes)
-  end
+task :gtfs_import, [:path] => :environment do |task,args|
+
+	{
+		"calendar.txt" 		=> "Calendar",
+		"routes.txt"			=> "Route",
+		"stops.txt"				=> "Stop",
+		"trips.txt"				=> "Trip",
+		"stop_times.txt"	=> "StopTime"
+	}.each do |file, model|
+
+		puts "Clearing #{model}..."
+
+		Module.const_get(model).delete_all
+
+	  puts "Importing #{file}..."
+
+		CSV.foreach(File.join(args[:path], file), :headers => true) do |row|
+	    attributes = Hash[row]
+	    Module.const_get(model).create(attributes)
+	  end
+
+	  puts "Done importing #{file}"
+	end
 end
