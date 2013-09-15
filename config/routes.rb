@@ -1,24 +1,15 @@
 Bus::Application.routes.draw do
   resources :stops
 
-  offline = Rack::Offline.configure do
-    cache "assets/application.js"
-    cache "assets/application.css"
-    files = Dir[
-      "#{root}/**/*.html"]
-    files.each do |file|
-      public_dir = Pathname.new("#{root}/public")
-      cache Pathname.new(file).relative_path_from(public_dir)
+  if Rails.env.production?
+    offline = Rack::Offline.configure :cache_interval => 120 do      
+      cache ActionController::Base.helpers.asset_path("application.css")
+      cache ActionController::Base.helpers.asset_path("application.js")
+      # cache other assets
+      network "/"  
     end
-    files = Dir[
-      "#{root}/assets/**/*.{js,css,jpg,png,gif}"]
-    files.each do |file|
-      cache Pathname.new(file).relative_path_from(root)
-    end
-
-    network "/"
+    get "/application.manifest" => offline  
   end
-  get "/application.manifest" => offline
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
