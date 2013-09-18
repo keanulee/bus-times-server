@@ -1,4 +1,6 @@
 class StopsController < ApplicationController
+
+  # GET /stops
   def index
     @stops = Stop.near(params[:lat], params[:lon])
 
@@ -12,6 +14,7 @@ class StopsController < ApplicationController
     end
   end
 
+  # GET /stops/:id
   def show
     @stop = Stop.find_by_stop_id(params[:id])
 

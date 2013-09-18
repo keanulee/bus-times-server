@@ -1,5 +1,6 @@
 Bus::Application.routes.draw do
   resources :stops
+  resources :watch
 
   if Rails.env.production?
     offline = Rack::Offline.configure :cache_interval => 120 do      
