@@ -1,7 +1,7 @@
 class Stop < ActiveRecord::Base
   has_many :stop_times, :primary_key => :stop_id
 
-  RADIUS = 0.004
+  RADIUS = 0.0025
 
   scope :near, lambda { |lat, lon|
     where("stop_lat BETWEEN ? AND ?", lat.to_f - RADIUS, lat.to_f + RADIUS).
