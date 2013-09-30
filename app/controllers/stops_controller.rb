@@ -8,7 +8,7 @@ class StopsController < ApplicationController
       format.html
       format.json { 
         render json: {
-          :stops => @stops.map { |stop| stop.stop_info }
+          stops: @stops.map(&:stop_info)
         }
       }
     end
