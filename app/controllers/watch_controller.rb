@@ -34,8 +34,6 @@ class WatchController < ApplicationController
           5 => 3945
         }
       end
-
-      p hash.inspect
     else
       stop = Stop.find_by_stop_id(stop_id)
 
