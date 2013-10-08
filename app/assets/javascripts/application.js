@@ -16,5 +16,6 @@
 //
 // Only include necessary Bootstrap JavaScript
 //= require twitter/bootstrap/alert
+//= require twitter/bootstrap/modal
 //
 //= require_tree .

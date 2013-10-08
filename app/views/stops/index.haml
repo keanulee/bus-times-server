@@ -4,8 +4,27 @@
   .btn-locate.btn.btn-primary.btn-block.disabled
     Loading...
   .app-link
-    = link_to 'Get the Pebble app', 'bus-times-pebble.pbw'
+    = link_to 'Get the Pebble app', '#pebble-app-modal', data: { toggle: :modal }
     %span.label.label-info Beta
-    %br/
-    (Requires
-    = link_to('httpebble', 'https://itunes.apple.com/ca/app/httpebble/id650174711?mt=8')+')'
+
+  #pebble-app-modal.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ data: { dismiss: :modal } } &times;
+          %h4.modal-title Bus Times Pebble App
+
+        .modal-body
+          %h4 iOS
+          = link_to 'Bus Times for iOS', 'bus-times-pebble-ios.pbw', class: "btn btn-primary app-btn"
+          %br/
+          Requires
+          = link_to 'httpebble', 'https://itunes.apple.com/ca/app/httpebble/id650174711?mt=8', target: "_blank"
+
+          %hr/
+
+          %h4 Android
+          = link_to 'Bus Times for Android', 'bus-times-pebble-android.pbw', class: "btn btn-success app-btn"
+          %br/
+          Requires
+          = link_to 'Pebble Connect with httpebble', 'https://play.google.com/store/apps/details?id=com.lukekorth.httpebble', target: "_blank"
