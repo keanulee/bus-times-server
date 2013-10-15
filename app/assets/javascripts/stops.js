@@ -18,13 +18,13 @@ $(document).ready(function () {
       span = $(span)
 
       var today           = new Date();
-      var departure_time  = new Date(2013, 9, 14,
+      var departure_time  = new Date(today.getFullYear(), today.getMonth(), today.getDate(),
         span.data('time')[0]+span.data('time')[1],
         span.data('time')[3]+span.data('time')[4]);
       
-      var mins = Math.round((departure_time - today) % (360000 * 24) / 60000);
+      var mins = Math.round((departure_time - today) % (3600000 * 24) / 60000);
 
-      if (mins == 0) {
+      if (mins <= 0) {
         span.text('due');
       }
       else if (mins > 60) {
