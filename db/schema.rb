@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130914211912) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "calendars", force: true do |t|
     t.string   "service_id"
     t.integer  "monday"
