@@ -6,16 +6,20 @@ $(document).ready(function () {
   var updating_string = "Updating..."
 
   function showAlert(text) {
-    var html = '<div class="alert alert-danger alert-dismissable">'
-    html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
-    html += text + '</div>'
+    var html = '<div class="alert alert-danger alert-dismissable">';
+    html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+    html += text + '</div>';
 
-    alert_container.html(html)
+    alert_container.html(html);
+  }
+
+  function hideAlert() {
+    alert_container.empty();
   }
 
   function refreshTimes() {
     $(".dept-time").each(function (i, span) {
-      span = $(span)
+      span = $(span);
 
       var today           = new Date();
       var departure_time  = new Date(today.getFullYear(), today.getMonth(), today.getDate(),
@@ -68,6 +72,7 @@ $(document).ready(function () {
             html += '</div>'
           })
 
+          hideAlert();
           content.html(html);
           refreshTimes();
         })
