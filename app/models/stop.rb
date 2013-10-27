@@ -4,9 +4,9 @@ class Stop < ActiveRecord::Base
   RADIUS = 0.003
 
   scope :near, lambda { |lat, lon|
-    where("stop_lat BETWEEN ? AND ?", lat.to_f - RADIUS, lat.to_f + RADIUS).
-    where("stop_lon BETWEEN ? AND ?", lon.to_f - RADIUS, lon.to_f + RADIUS).
-    where("POWER(stop_lat - ?, 2) + POWER(stop_lon - ?, 2) < ?", lat.to_f, lon.to_f, RADIUS ** 2)
+    where("stop_lat BETWEEN ? AND ?", lat.to_f - RADIUS, lat.to_f + RADIUS)
+    .where("stop_lon BETWEEN ? AND ?", lon.to_f - RADIUS, lon.to_f + RADIUS)
+    .where("POWER(stop_lat - ?, 2) + POWER(stop_lon - ?, 2) < ?", lat.to_f, lon.to_f, RADIUS ** 2)
   }
 
   def stop_info
@@ -20,15 +20,12 @@ class Stop < ActiveRecord::Base
   end
 
   def routes
-    stop_times.upcoming.inject({}) { |hash, stop_time|
-        if stop_time.trip.active
-          hash[stop_time.trip.trip_headsign] ||= []
-          hash[stop_time.trip.trip_headsign] << stop_time.departure_time.strftime("%R")
-        end
+    stop_times.upcoming.sort_by(&:departure_time).inject({}) { |hash, stop_time|
+        hash[stop_time.trip.trip_headsign] ||= []
+        hash[stop_time.trip.trip_headsign] << stop_time.departure_time.strftime("%R")
         hash
-      }.inject([]) { |array, (key, times)| 
-        array << { name: key, departure_times: times.sort }
-        array
+      }.map { |(trip_headsign, times)| 
+        { name: trip_headsign, departure_times: times.sort }
       }
   end
 
