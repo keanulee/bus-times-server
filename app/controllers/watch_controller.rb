@@ -21,20 +21,13 @@ class WatchController < ApplicationController
     route_index = params[KEY_PAGE]
 
     if stop_id == 0
+      # Respond with list of stop ids
       stops = Stop.near(lat, lon)
+      num_results = [6,stops.size].min
 
-      hash = Hash[(0...stops.size).zip stops.map(&:stop_id)]
-      if hash.empty?
-        hash = {
-          0 => 2673,
-          1 => 2674,
-          2 => 2675,
-          3 => 2783,
-          4 => 3943,
-          5 => 3945
-        }
-      end
+      hash = Hash[(0...num_results).zip stops.map(&:stop_id)]
     else
+      # Respond with stop info and times for one of the routes
       stop = Stop.find_by_stop_id(stop_id)
 
       if stop.nil?
