@@ -1,6 +1,6 @@
 # Bus Times Server
 
-Bus Times Server serves as the backend web server for (Bus Times Pebble)[https://github.com/keanulee/bus-times-pebble],
+Bus Times Server serves as the backend web server for [Bus Times Pebble](https://github.com/keanulee/bus-times-pebble),
 which displays upcoming departure times for nearby bus stops on your Pebble watch.
 
 ## Bus Data
@@ -85,4 +85,4 @@ The compiled Pebble apps are in `public/bus-times-pebble-ios.pbw` and `public/bu
 The apps use the URL of the Bus Times Server; they need to be changed to match your instance of Bus Times
 Server and recompiled.
 
-To view the source for the Pebble app, see (Bus Times Pebble)[https://github.com/keanulee/bus-times-pebble].
+To view the source for the Pebble app, see [Bus Times Pebble](https://github.com/keanulee/bus-times-pebble).
