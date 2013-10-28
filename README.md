@@ -19,9 +19,9 @@ where the directory gtfs_data contains:
 * trips.txt
 * stop_times.txt
 
-### Response Format
+## Response Format
 
-When the Pebble app starts, the watch senda a POST request with the following parameters:
+When the Pebble app starts, the watch sends a POST request with the following parameters:
 
 #### Request
 
@@ -78,3 +78,11 @@ The response contains strings that will be displayed on screen:
   "2" : <departure times, up to 11 characters | "No Departures">
 }
 ```
+
+## Pebble Watch Apps
+
+The compiled Pebble apps are in `public/bus-times-pebble-ios.pbw` and `public/bus-times-pebble-android.pbw`.
+The apps use the URL of the Bus Times Server; they need to be changed to match your instance of Bus Times
+Server and recompiled.
+
+Source code for the Pebble app is in a separate repository.
